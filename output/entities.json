@@ -1,12 +1,57 @@
 [
     {
-        "Entity": "RAJIV GANDHI PROUDYOGIKI VISHWAVIDYALAYA",
-        "Type": "Person",
-        "Confidence": 0.792
+        "Entity": "INS-2026-014",
+        "Type": "Equipment Tag",
+        "Confidence": 0.665
     },
     {
-        "Entity": "failure classification",
+        "Entity": "Equipment Pump P-101",
+        "Type": "Equipment",
+        "Confidence": 0.624
+    },
+    {
+        "Entity": "Inspector Rahul Sharma",
+        "Type": "Person",
+        "Confidence": 0.918
+    },
+    {
+        "Entity": "Routine inspection",
+        "Type": "Inspection Date",
+        "Confidence": 0.545
+    },
+    {
+        "Entity": "vibration",
+        "Type": "Measurement",
+        "Confidence": 0.529
+    },
+    {
+        "Entity": "8.2 mm/s",
+        "Type": "Measurement",
+        "Confidence": 0.461
+    },
+    {
+        "Entity": "bearing temperature",
+        "Type": "Temperature",
+        "Confidence": 0.819
+    },
+    {
+        "Entity": "78 C",
+        "Type": "Temperature",
+        "Confidence": 0.969
+    },
+    {
+        "Entity": "oil leakage",
         "Type": "Failure",
-        "Confidence": 0.552
+        "Confidence": 0.833
+    },
+    {
+        "Entity": "BR-220",
+        "Type": "Location",
+        "Confidence": 0.904
+    },
+    {
+        "Entity": "Alignment and bearing inspection",
+        "Type": "Maintenance Action",
+        "Confidence": 0.927
     }
 ]

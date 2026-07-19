@@ -1,94 +1,78 @@
 import streamlit as st
+from services.integration import ask_ai
 
-from services.asset_service import get_assets
+st.set_page_config(page_title="AI Copilot", page_icon="🤖")
 
-st.set_page_config(
-    page_title="Asset 360",
-    page_icon="🏭"
-)
+st.title("🤖 AI Copilot")
+st.write("Ask questions from all uploaded industrial documents.")
 
-st.title("🏭 Asset 360")
+# Initialize chat history
+if "messages" not in st.session_state:
+    st.session_state.messages = []
 
-assets = get_assets()
+# Display previous messages
+for msg in st.session_state.messages:
+    with st.chat_message(msg["role"]):
+        st.markdown(msg["content"])
 
-if len(assets) == 0:
+# Chat input
+question = st.chat_input("Ask a question about your documents...")
 
-    st.warning("No processed assets found.")
+if question:
 
-    st.stop()
-
-names = []
-
-for asset in assets:
-
-    names.append(asset.get("Equipment", "Unknown"))
-
-selected = st.selectbox(
-
-    "Select Asset",
-
-    names
-
-)
-
-asset = assets[names.index(selected)]
-
-st.divider()
-
-col1, col2 = st.columns(2)
-
-with col1:
-
-    st.metric(
-
-        "Equipment",
-
-        asset.get("Equipment", "-")
-
+    # Show user message
+    st.session_state.messages.append(
+        {
+            "role": "user",
+            "content": question
+        }
     )
 
-    st.metric(
+    with st.chat_message("user"):
+        st.markdown(question)
 
-        "Equipment Tag",
+    # Generate answer
+    with st.chat_message("assistant"):
 
-        asset.get("Equipment Tag", "-")
+        with st.spinner("Searching documents..."):
 
-    )
+            try:
 
-    st.metric(
+                result = ask_ai(question)
 
-        "Temperature",
+                if result["status"] == "success":
 
-        asset.get("Temperature", "-")
+                    answer = result["answer"]
 
-    )
+                    st.markdown(answer)
 
-with col2:
+                    with st.expander("Retrieved Context"):
 
-    st.metric(
+                        st.write(result["context"])
 
-        "Failure",
+                else:
 
-        asset.get("Failure", "-")
+                    answer = result["message"]
 
-    )
+                    st.error(answer)
 
-    st.metric(
+            except Exception as e:
 
-        "Maintenance Action",
+                answer = str(e)
 
-        asset.get("Maintenance Action", "-")
+                st.error(answer)
 
-    )
-
-    st.metric(
-
-        "Person",
-
-        asset.get("Person", "-")
-
+    st.session_state.messages.append(
+        {
+            "role": "assistant",
+            "content": answer
+        }
     )
 
 st.divider()
 
-st.json(asset)
+if st.button("🗑 Clear Chat"):
+
+    st.session_state.messages = []
+
+    st.rerun()

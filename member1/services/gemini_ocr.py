@@ -7,14 +7,10 @@ load_dotenv()
 
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
-model = genai.GenerativeModel("gemini-2.5-flash")
+model = genai.GenerativeModel("gemini-1.5-flash")
 
 
 def extract_text_from_image(image_path):
-    """
-    Extract text from an image using Gemini Vision.
-    """
-
     image = Image.open(image_path)
 
     response = model.generate_content([
@@ -22,4 +18,4 @@ def extract_text_from_image(image_path):
         image
     ])
 
-    return response.text
+    return response.texts
