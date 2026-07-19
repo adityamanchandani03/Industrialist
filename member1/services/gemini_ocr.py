@@ -1,24 +1,25 @@
-from google import genai
-from dotenv import load_dotenv
 import os
+from dotenv import load_dotenv
+import google.generativeai as genai
 from PIL import Image
 
 load_dotenv()
 
-client = genai.Client(
-    api_key=os.getenv("GEMINI_API_KEY")
-)
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+
+model = genai.GenerativeModel("gemini-2.5-flash")
+
 
 def extract_text_from_image(image_path):
+    """
+    Extract text from an image using Gemini Vision.
+    """
 
     image = Image.open(image_path)
 
-    response = client.models.generate_content(
-        model="gemini-2.5-flash",
-        contents=[
-            "Extract all text from this industrial document. Return only the extracted text.",
-            image
-        ]
-    )
+    response = model.generate_content([
+        "Extract all text from this industrial document. Return only the extracted text.",
+        image
+    ])
 
     return response.text
