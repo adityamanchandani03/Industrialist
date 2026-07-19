@@ -1,0 +1,12 @@
+[
+    {
+        "Entity": "RAJIV GANDHI PROUDYOGIKI VISHWAVIDYALAYA",
+        "Type": "Person",
+        "Confidence": 0.792
+    },
+    {
+        "Entity": "failure classification",
+        "Type": "Failure",
+        "Confidence": 0.552
+    }
+]

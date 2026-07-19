@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.env
+.venv/
+temp/
+temp_uploads/
+member2/database/
+member1/output/
+*.db
