@@ -2,12 +2,20 @@ import os
 from dotenv import load_dotenv
 import google.generativeai as genai
 from PIL import Image
+import streamlit as st
+
 
 load_dotenv()
 
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+API_KEY = os.getenv("GEMINI_API_KEY")
+
+if not API_KEY:
+    API_KEY = st.secrets["GEMINI_API_KEY"]
 
 model = genai.GenerativeModel("gemini-1.5-flash")
+
+# 
+
 
 
 def extract_text_from_image(image_path):
