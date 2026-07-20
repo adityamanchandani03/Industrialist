@@ -8,10 +8,17 @@ based on document context.
 import os
 import google.generativeai as genai
 from dotenv import load_dotenv
+import streamlit as st
 
 load_dotenv()
 
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+load_dotenv()
+
+API_KEY = os.getenv("GEMINI_API_KEY")
+
+if not API_KEY:
+    API_KEY = st.secrets["GEMINI_API_KEY"]
 
 model = genai.GenerativeModel("gemini-2.5-flash")
 
